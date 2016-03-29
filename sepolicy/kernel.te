@@ -1,0 +1,5 @@
+allow kernel self:capability mknod;
+allow kernel self:system module_request;
+allow kernel device:blk_file { create setattr getattr unlink };
+allow kernel device:dir { create write add_name remove_name rmdir };
+allow kernel device:chr_file { create setattr getattr unlink };

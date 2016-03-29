@@ -1,0 +1,15 @@
+hdmi_force_hotplug=1
+hdmi_drive=2
+config_hdmi_boost=4
+hdmi_group=1
+hdmi_mode=4
+disable_overscan=1
+framebuffer_width=1280
+framebuffer_height=720
+kernel=zImage
+device_tree=bcm2710-rpi-3-b.dtb
+initramfs ramdisk.img 0x01f00000
+mask_gpu_interrupt0=0x400
+avoid_warnings=2
+gpu_mem=256
+enable_uart=1

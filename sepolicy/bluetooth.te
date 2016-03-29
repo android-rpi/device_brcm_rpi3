@@ -1,0 +1,2 @@
+allow bluetooth rfkill_device:chr_file rw_file_perms;
+allow bluetooth self:socket create_socket_perms;

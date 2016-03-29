@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <feature name="android.hardware.audio.output" />
+    <feature name="android.hardware.location" />
+    <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.screen.landscape" />
+    <feature name="android.hardware.type.television" />
+
+    <feature name="android.software.app_widgets" />
+    <feature name="android.software.backup" />
+    <feature name="android.software.leanback" />
+    <feature name="android.software.live_tv" />
+
+</permissions>

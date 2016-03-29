@@ -1,0 +1,8 @@
+type hciconfig, domain;
+type hciconfig_exec, file_type, exec_type;
+
+init_daemon_domain(hciconfig)
+typeattribute hciconfig mlstrustedsubject;
+
+allow hciconfig self:socket create_socket_perms;
+allow hciconfig self:capability { net_admin };

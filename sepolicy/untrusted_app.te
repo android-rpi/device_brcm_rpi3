@@ -1,0 +1,1 @@
+allow untrusted_app dri_device:chr_file rw_file_perms;

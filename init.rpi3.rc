@@ -1,4 +1,3 @@
-
 on init
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
@@ -11,12 +10,15 @@ on init
 
 on fs
     mount_all /fstab.rpi3
-
+    
 on post-fs-data
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp wifi
+
+    # Bluetooth
+    chmod 666 /dev/ttyAMA0
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
@@ -63,5 +65,16 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
 
 service iprenew_eth0 /system/bin/dhcpcd -n
     class late_start
+    disabled
+    oneshot
+
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    class main
+    group bluetooth wifi system dhcp
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
+    group bluetooth system dhcp
     disabled
     oneshot

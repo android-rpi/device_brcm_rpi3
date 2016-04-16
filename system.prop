@@ -3,3 +3,5 @@ ro.sf.lcd_density=213
 debug.drm.mode.force=1280x720
 wifi.interface=wlan0
 ro.rfkilldisabled=1
+ro.kernel.android.gpsttybaud=9600
+ro.kernel.android.gps=ttyUSB0

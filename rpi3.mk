@@ -1,5 +1,6 @@
 USE_OEM_TV_APP := true
 $(call inherit-product, device/google/atv/products/atv_base.mk)
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
@@ -20,6 +21,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     wpa_supplicant \
     wpa_supplicant.conf \
+    gps.default \
     Launcher2 \
     LeanbackLauncher \
     Settings \
@@ -31,6 +33,7 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf \
     device/generic/goldfish/camera/media_profiles.xml:system/etc/media_profiles.xml \
     device/generic/goldfish/camera/media_codecs.xml:system/etc/media_codecs.xml \

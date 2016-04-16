@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
     gralloc.$(TARGET_PRODUCT) \
     hwcomposer.$(TARGET_PRODUCT) \
     audio.primary.$(TARGET_PRODUCT) \
+    audio.a2dp.default \
     wpa_supplicant \
     wpa_supplicant.conf \
     Launcher2 \

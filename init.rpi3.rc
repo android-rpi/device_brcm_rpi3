@@ -18,7 +18,10 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp wifi
 
     # Bluetooth
-    chmod 666 /dev/ttyAMA0
+    write /sys/class/rfkill/rfkill0/state 1
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1

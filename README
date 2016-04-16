@@ -3,7 +3,7 @@ Read it first : https://github.com/kconger/local_manifests/tree/npv
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
  $ cd kernel/rpi
- $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig android/configs/android-base.cfg android/configs/android-recommended.cfg
+ $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig android/configs/android-base.cfg android/configs/android-recommended.cfg ../../device/brcm/rpi3/kernel/config.cfg
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make zImage
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make dtbs
 

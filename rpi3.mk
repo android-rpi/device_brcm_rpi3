@@ -1,14 +1,11 @@
-USE_OEM_TV_APP := true
-$(call inherit-product, device/google/atv/products/atv_base.mk)
+USE_OEM_TV_APP := false
+$(call inherit-product, device/google/atv/products/aosp_arm.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
-PRODUCT_BRAND := AndroidTV
-PRODUCT_MODEL := AndroidTV on rpi3
+PRODUCT_BRAND := Android
+PRODUCT_MODEL := Android on rpi3
 PRODUCT_MANUFACTURER := brcm
-
-PRODUCT_AAPT_CONFIG := normal tvdpi hdpi
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
 
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
@@ -51,5 +48,5 @@ PRODUCT_COPY_FILES := \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
-PRODUCT_CHARACTERISTICS := tv
-PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN
+PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_LOCALES := en_US

@@ -7,6 +7,7 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := Android on rpi3
 PRODUCT_MANUFACTURER := brcm
 
+# dalvik heap config
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PACKAGES += \
@@ -16,8 +17,7 @@ PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_PRODUCT) \
     wpa_supplicant \
     wpa_supplicant.conf \
-    Launcher2 \
-    LeanbackLauncher \
+    Launcher3 \
     Settings \
     Browser2
 

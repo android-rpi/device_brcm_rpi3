@@ -1,5 +1,0 @@
-class netlink_netfilter_socket
-inherits socket
-
-class netlink_generic_socket
-inherits socket

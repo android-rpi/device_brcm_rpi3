@@ -19,7 +19,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     Launcher3 \
     Settings \
-    Browser2
+    Browser2 \
+    EVWidgets
 
 PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \

@@ -1,4 +1,3 @@
-debug.drm.mode.force=1280x720
 ril.function.dataonly=1
 ro.adb.secure=0
 ro.opengles.version=131072

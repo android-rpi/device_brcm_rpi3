@@ -1,0 +1,2 @@
+allow shell init_exec:file getattr;
+allow shell rootfs:file getattr;

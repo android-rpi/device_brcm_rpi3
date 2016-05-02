@@ -1,0 +1,2 @@
+allow radio dri_device:chr_file { read write ioctl open };
+allow radio system_app_data_file:dir getattr;

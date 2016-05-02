@@ -19,7 +19,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     Launcher3 \
     Settings \
-    Browser2 \
+    Browser \
     EVWidgets
 
 PRODUCT_COPY_FILES := \

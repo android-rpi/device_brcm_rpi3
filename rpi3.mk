@@ -20,8 +20,7 @@ PRODUCT_PACKAGES += \
     Launcher3 \
     Settings \
     Browser \
-    EVWidgets \
-    CMFileManager
+    EVWidgets
 
 PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \

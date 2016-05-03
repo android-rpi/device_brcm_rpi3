@@ -1,5 +1,5 @@
-USE_OEM_TV_APP := false
 $(call inherit-product, build/target/product/aosp_arm.mk)
+$(call inherit-product, device/brcm/rpi3/realtime/rtandroid.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3

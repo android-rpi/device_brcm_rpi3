@@ -1,0 +1,32 @@
+on boot
+    # reading the kernel parameters
+    chmod 0444 /proc/cmdline
+
+    # adb debugging on boot
+    setprop service.adb.tcp.port 5555
+    stop adbd
+    start adbd
+
+    # global frequency scaling
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    # state of the cpu cores
+    chown system system /sys/devices/system/cpu/cpu0/online
+    chmod 0664 /sys/devices/system/cpu/cpu0/online
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0664 /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/devices/system/cpu/cpu2/online
+    chmod 0664 /sys/devices/system/cpu/cpu2/online
+    chown system system /sys/devices/system/cpu/cpu3/online
+    chmod 0664 /sys/devices/system/cpu/cpu3/online

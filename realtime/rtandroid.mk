@@ -1,5 +1,5 @@
 # Inherit common realtime stuff
-$(call inherit-product, vendor/realtime/config/common.mk)
+#$(call inherit-product, vendor/realtime/config/common.mk)
 
 # RTAndroid boot animation
 PRODUCT_COPY_FILES += \

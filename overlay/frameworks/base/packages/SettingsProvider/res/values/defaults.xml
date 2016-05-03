@@ -26,6 +26,17 @@
     <bool name="def_device_provisioned">true</bool>
     <bool name="def_user_setup_complete">true</bool>
 
+    <!-- Animation options -->
+    <fraction name="def_window_animation_scale">0.0%</fraction>
+    <fraction name="def_window_transition_scale">0.0%</fraction>
+
+    <!-- No vibration feedback -->
+    <bool name="def_haptic_feedback">false</bool>
+
+    <!-- Screen dimming options -->
+    <integer name="def_screen_off_timeout">-1</integer>
+    <bool name="def_dim_screen">false</bool>
+
     <!-- Keep screen on at all times by default -->
     <bool name="def_stay_on_while_plugged_in">true</bool>
 

@@ -6,9 +6,6 @@
          is disableable for products for which it is irrelevant. -->
     <bool name="config_useVolumeKeySounds">false</bool>
 
-    <!-- Allow changing master volume stream and nothing else -->
-    <bool name="config_useMasterVolume">true</bool>
-
     <!-- Disable AUDIO_BECOMING_NOISY notifications. -->
     <bool name="config_sendAudioBecomingNoisy">false</bool>
 

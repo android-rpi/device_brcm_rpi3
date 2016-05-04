@@ -1,3 +1,4 @@
+import init.rt.target.rc
 
 on init
     # Support legacy paths

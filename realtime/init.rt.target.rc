@@ -1,7 +1,6 @@
-on boot
-    # reading the kernel parameters
-    chmod 0444 /proc/cmdline
+import init.rt.common.rc
 
+on boot
     # adb debugging on boot
     setprop service.adb.tcp.port 5555
     stop adbd

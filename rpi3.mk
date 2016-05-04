@@ -17,12 +17,7 @@ PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_PRODUCT) \
     wpa_supplicant \
     wpa_supplicant.conf \
-    Launcher3 \
-    Settings \
-    Browser \
-    EVWidgets \
-    Superuser \
-    CMFileManager
+    EVWidgets
 
 PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \

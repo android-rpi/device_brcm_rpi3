@@ -7,4 +7,4 @@ PRODUCT_COPY_FILES += \
 
 # Device-specific init scripts
 PRODUCT_COPY_FILES += \
-    device/brcm/rpi3/realtime/init.rtandroid.rc:root/init.rtandroid.rc
+    device/brcm/rpi3/realtime/init.rt.target.rc:root/init.rt.target.rc

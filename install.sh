@@ -2,6 +2,7 @@
 
 # global program variables
 DEVICE_LOCATION=""
+DEVICE_NAME=""
 DEVICE_ID=""
 DEVICE_SIZE=""
 DEVICE_PATH=""
@@ -10,7 +11,6 @@ PARTITION_NEEDED=false
 USERDATA_FORMAT=false
 
 # constants for the sdcard and partitions
-SIZE_SD=4096  # minimum size of device in MB
 SIZE_P1=512   # exact size of the partition 1 (boot) in MB
 SIZE_P2=1024  # exact size of the partition 2 (system) in MB
 SIZE_P3=512   # exact size of the partition 3 (cache) in MB
@@ -20,10 +20,11 @@ show_help()
 {
 cat << EOF
 USAGE:
-  $0 [-p] [-f] /dev/NAME
+  $0 [-f] [-h] [-p] /dev/NAME
 OPTIONS:
-  -p    (Re-)partition the sdcard
-  -f    Format userdata and cache
+  -f  Format userdata and cache
+  -h  Show help
+  -p  (Re-)partition the sdcard
 EOF
 }
 
@@ -31,52 +32,117 @@ check_device()
 {
     echo " * Checking the device in $DEVICE_LOCATION..."
 
-    if [[ ! -n "$DEVICE_LOCATION" ]]; then
-        echo "ERR: device location not specified (e.g. '-d /dev/sdc')"
+    if [[ -z "$DEVICE_LOCATION" ]]; then
+        echo ""
+        echo "ERR: device location not valid"
         exit 1
     fi
 
     if [[ ! -b "$DEVICE_LOCATION" ]]; then
+        echo ""
         echo "ERR: no block device was found in $DEVICE_LOCATION"
         exit 1
     fi
 
-    # get the block device for size detection
-    sudo lsblk
-    dir /dev/disk/by-path/
-    DEVICE_ID=`echo "$DEVICE_LOCATION" | sed -e "s/^\/dev\/sd\(.\)$/\1/g"` #regex : search for /dev/sd[a-z] and set DEVICE_ID = [a-z]
-
     echo " * Validating the device's size..."
 
+    DEVICE_NAME=${DEVICE_LOCATION##*/}
+    SIZE_FILE="/sys/block/$DEVICE_NAME/size"
+    DEVICE_SIZE_SECTORS=$(cat $SIZE_FILE)
+
+    if [[ ! -f "$SIZE_FILE" ]]; then
+        echo ""
+        echo "ERR: can't detect the size of the sdcard"
+    fi
+
+    REQUIRED_SIZE_MB=$((SIZE_P1 + SIZE_P2 + SIZE_P3 + SIZE_P4))
+    echo "  - minimum size: $REQUIRED_SIZE_MB MB"
+
     # DEVICE_SIZE [Sector] * 512 [Byte/Sector] / 1024 [Byte/KB] / 1024 [KB/MB] = SIZE [MB]
-    DEVICE_SIZE=`cat /sys/block/sd"$DEVICE_ID"/size`
-    DEV_SIZE_MB=$(($DEVICE_SIZE*512/1024/1024))
-    if [[ $DEV_SIZE_MB -gt $SIZE_SD ]]; then
+    DEVICE_SIZE_MB=$(($DEVICE_SIZE_SECTORS*512/1024/1024))
+    echo "  - detected size: $DEVICE_SIZE_MB MB"
+
+    if [[ $DEVICE_SIZE_MB -lt $REQUIRED_SIZE_MB ]]; then
+        echo ""
         echo "ERR: please use an sdcard with more than $SIZE_SD MB"
         exit 1
     fi
 }
 
-check_partition()
+check_partitions()
 {
-    if [[ "$PARTITION" ]]; then
-        read -p "Are you sure you want to partition the device $DEVICE_LOCATION (all data will be lost)? [y/N]: " yn
-        case $yn in
-            [Yy]* ) perform_partition;;
-            [Nn]* ) printf "Please check your parameter and try again.\n"; exit;; # abort
-            "" ) printf "Please check your parameter and try again.\n"; exit;; # abort
-            *) printf "Please answer with [y]es or [n]o.\n"; check_partition;;
-        esac
-    elif $PARTITION_NEEDED; then
-        printf "The device is not partitioned in the correct way. Use \"-p\" to partition the device.\n"
+    PARTITION_COUNT=$(ls -al ${DEVICE_LOCATION}? | wc -l)
+    echo " * Detected $PARTITION_COUNT partitions on $DEVICE_LOCATION"
+
+    # allow less partitions if we are going to re-partition it anyways
+    if [ "$PARTITION" = true ]; then
+        echo " - ignoring this count due to upcoming partitioning"
+        PARTITION_COUNT=4
+    fi
+
+    if [ "${PARTITION_COUNT:-0}" -ne 4 ]; then
+        echo "ERR: bad device in $DEVICE_LOCATION"
         exit 1
-    else
-        echo "The device is correct patitionated."
     fi
 }
 
-perform_partition()
+check_sizes()
 {
+    echo " * Validating partition sizes..."
+
+    PARTITION1_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}1/size")
+    PARTITION1_SIZE_MB=$(($PARTITION1_SIZE_SECTORS*512/1024/1024))
+    echo "  - boot) available: $PARTITION1_SIZE_MB MB, required: $SIZE_P1 MB"
+
+    if [[ $PARTITION1_SIZE_MB -lt $SIZE_P1 ]];
+    then
+        echo ""
+        echo "ERR: the 'boot' partition doesn't provide enough space!"
+        exit 1
+    fi
+
+    PARTITION2_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}2/size")
+    PARTITION2_SIZE_MB=$(($PARTITION2_SIZE_SECTORS*512/1024/1024))
+    echo "  - system) available: $PARTITION2_SIZE_MB MB, required: $SIZE_P2 MB"
+
+    if [[ $PARTITION2_SIZE_MB -lt $SIZE_P2 ]];
+    then
+        echo ""
+        echo "ERR: the 'system' partition doesn't provide enough space!"
+        exit 1
+    fi
+
+    PARTITION3_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}3/size")
+    PARTITION3_SIZE_MB=$(($PARTITION3_SIZE_SECTORS*512/1024/1024))
+    echo "  - cache) available: $PARTITION3_SIZE_MB MB, required: $SIZE_P3 MB"
+
+    if [[ $PARTITION3_SIZE_MB -lt $SIZE_P3 ]];
+    then
+        echo ""
+        echo "ERR: the 'cache' partition doesn't provide enough space!"
+        exit 1
+    fi
+
+    PARTITION4_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}4/size")
+    PARTITION4_SIZE_MB=$(($PARTITION4_SIZE_SECTORS*512/1024/1024))
+    echo "  - data) available: $PARTITION4_SIZE_MB MB, required: $SIZE_P4 MB"
+
+    if [[ $PARTITION4_SIZE_MB -lt $SIZE_P4 ]];
+    then
+        echo ""
+        echo "ERR: the 'data' partition doesn't provide enough space!"
+        exit 1
+    fi
+}
+
+create_partitions()
+{
+    # no partitioning was requested
+    if [ "$PARTITION" = false ]; then
+        echo " * Skipping partitioning..."
+        return
+    fi
+
     echo " * Start partitioning..."
     local TEST=0
 
@@ -118,58 +184,6 @@ perform_partition()
         echo "ERR: an error while partitioning occured."
         exit 1
     fi
-
-    echo " * Validating the partition count..."
-}
-
-
-check_size()
-{
-    echo " * Validating partition sizes..."
-
-    if [[ -b "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}1" ]]; then
-        local PARTITION1_SIZE=`cat "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}1"`
-    else
-        PARTITION_NEEDED=true
-    fi
-
-    if [[ -b "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}2" ]]; then
-        local PARTITION2_SIZE=`cat "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}2"`
-    else
-        PARTITION_NEEDED=true
-    fi
-
-    if [[ -b "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}3" ]]; then
-        local PARTITION3_SIZE=`cat "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}3"`
-    else
-        PARTITION_NEEDED=true
-    fi
-
-    if [[ -b "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}4" ]]; then
-        local PARTITION4_SIZE=`cat "/sys/block/sd${DEVICE_ID}/sd${DEVICE_ID}4"`
-    else
-        PARTITION_NEEDED=true
-    fi
-
-    if [[
-        $(($PARTITION1_SIZE*512/1024/1024)) -eq $SIZE_P1 &&
-        $(($PARTITION2_SIZE*512/1024/1024)) -eq $SIZE_P2 &&
-        $(($PARTITION3_SIZE*512/1024/1024)) -eq $SIZE_P3 &&
-        $(($PARTITION4_SIZE*512/1024/1024)) -gt $SIZE_P4
-        ]];
-    then
-        PARTITION_NEEDED=false
-    else
-        PARTITION_NEEDED=true
-    fi
-
-    PART_COUNT=`ls -al ${DEVICE_LOCATION}? | wc -l`
-    echo " * Using sdcard in $DEVICE_LOCATION with $PART_COUNT"
-
-    if [ "${PART_COUNT:-0}" -ne 4 ]; then
-      echo "ERR: bad device in $DEVICE_LOCATION"
-      exit 1
-    fi
 }
 
 unmount_all()
@@ -184,7 +198,14 @@ unmount_all()
 
 format_data()
 {
+    # no partitioning was requested
+    if [ "$PARTITION" = false ]; then
+        echo " * Skipping data format..."
+        return
+    fi
+
     echo " * Formatting 'cache' and 'data'..."
+    echo ""
     local TEST=0
 
     sudo mkfs.ext4 -L cache ${DEVICE_LOCATION}3
@@ -202,6 +223,7 @@ format_data()
 format_system()
 {
     echo " * Formatting 'boot' and 'system'..."
+    echo ""
     local TEST=0
 
     sudo mkfs.vfat -n boot -F 32 ${DEVICE_LOCATION}1
@@ -249,30 +271,39 @@ copy_files()
 # Script entry point
 # --------------------------------------
 
-echo "Installation script for RPi started."
-echo ""
-
 # save the passed options
-while getopts ":fp" flag; do
+while getopts ":fhp" flag; do
 case $flag in
-    "p") PARTITION=false ;;
+    "h") SHOW_HELP=true ;;
+    "p") PARTITION=true ;;
     "f") USERDATA_FORMAT=true ;;
     *)
-         echo "ERR: invalid option (-$flag $OPTARG)"
          echo ""
-         show_help
+         echo "ERR: invalid option (-$flag $OPTARG)"
          exit 1
 esac
 done
 
+# don't do anything else
+if [[ "$SHOW_HELP" = true ]]; then
+    show_help
+    exit
+fi
+
 # what left after the parameters has to be the device
 shift $(($OPTIND - 1))
-DEVICE_LOCATION="$1" ;;
+DEVICE_LOCATION="$1"
+
+echo "Installation script for RPi started."
+echo "Target device: %DEVICE_LOCATION"
+echo "Perform partitioning: $PARTITION"
+echo "Perform formatting: $USERDATA_FORMAT"
+echo ""
 
 check_device
-check_partition
-check_format
-check_size
+check_partitions
+create_partitions
+check_sizes
 unmount_all
 format_data
 format_system

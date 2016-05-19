@@ -240,9 +240,13 @@ format_system()
 
 copy_files()
 {
-    BOOT_FILES="boot"
-    SYSTEM_IMG="system.img"
+    BOOT_DIR="boot"
+    if [ ! -d $BOOT_DIR ]; then
+        echo "ERR: boot directory not found!"
+        exit 1
+    fi
 
+    SYSTEM_IMG="system.img"
     if [ ! -f $SYSTEM_IMG ]; then
         echo "ERR: system image not found!"
         exit 1
@@ -257,7 +261,7 @@ copy_files()
     sudo mount -t vfat -o rw ${DEVICE_LOCATION}1 $DIR_NAME
 
     echo "   - copying boot files"
-    sudo cp $BOOT_FILES/* $DIR_NAME/
+    sudo cp $BOOT_DIR/* $DIR_NAME/
 
     echo "   - unmounting the boot partition"
     sudo umount $DIR_NAME
@@ -280,6 +284,8 @@ case $flag in
     *)
          echo ""
          echo "ERR: invalid option (-$flag $OPTARG)"
+         echo ""
+         show_help
          exit 1
 esac
 done
@@ -294,8 +300,17 @@ fi
 shift $(($OPTIND - 1))
 DEVICE_LOCATION="$1"
 
+# no target provided
+if [[ -z "$DEVICE_LOCATION" ]]; then
+    echo ""
+    echo "ERR: missing the path to the sdcard!"
+    echo ""
+    show_help
+    exit
+fi
+
 echo "Installation script for RPi started."
-echo "Target device: %DEVICE_LOCATION"
+echo "Target device: $DEVICE_LOCATION"
 echo "Perform partitioning: $PARTITION"
 echo "Perform formatting: $USERDATA_FORMAT"
 echo ""

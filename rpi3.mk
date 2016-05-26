@@ -12,8 +12,6 @@ include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PACKAGES += \
     libGLES_mesa \
-    libmesa_glsl \
-    glsl_compiler \
     gralloc.$(TARGET_PRODUCT) \
     hwcomposer.$(TARGET_PRODUCT) \
     audio.primary.$(TARGET_PRODUCT) \

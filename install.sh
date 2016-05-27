@@ -199,18 +199,20 @@ unmount_all()
 format_data()
 {
     # no partitioning was requested
-    if [ "$PARTITION" = false ]; then
+    if [ "$USERDATA_FORMAT" = false ]; then
         echo " * Skipping data format..."
         return
     fi
 
-    echo " * Formatting 'cache' and 'data'..."
+    echo " * Formatting data partitions..."
     echo ""
     local TEST=0
 
+    echo "  - formatting 'cache'"
     sudo mkfs.ext4 -L cache ${DEVICE_LOCATION}3
     ((TEST+=$?))
 
+    echo "  - formatting 'userdata'"
     sudo mkfs.ext4 -L userdata ${DEVICE_LOCATION}4
     ((TEST+=$?))
 
@@ -222,13 +224,14 @@ format_data()
 
 format_system()
 {
-    echo " * Formatting 'boot' and 'system'..."
-    echo ""
+    echo " * Formatting system partitions..."
     local TEST=0
 
+    echo "  - formatting 'boot'"
     sudo mkfs.vfat -n boot -F 32 ${DEVICE_LOCATION}1
     ((TEST+=$?))
 
+    echo "  - formatting 'system'"
     sudo mkfs.ext4 -L system ${DEVICE_LOCATION}2
     ((TEST+=$?))
 

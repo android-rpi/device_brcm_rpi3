@@ -205,7 +205,6 @@ format_data()
     fi
 
     echo " * Formatting data partitions..."
-    echo ""
     local TEST=0
 
     echo "  - formatting 'cache'"

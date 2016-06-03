@@ -7,6 +7,8 @@ config_hdmi_boost=5
 disable_overscan=1
 kernel=zImage
 device_tree=bcm2710-rpi-3-b.dtb
+dtparam=audio=on
+dtoverlay=vc4-kms-v3d,cma-256
 initramfs ramdisk.img 0x01f00000
 mask_gpu_interrupt0=0x400
 avoid_warnings=2

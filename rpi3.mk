@@ -3,8 +3,8 @@ $(call inherit-product, device/google/atv/products/atv_base.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
-PRODUCT_BRAND := AndroidTV
-PRODUCT_MODEL := AndroidTV on rpi3
+PRODUCT_BRAND := Android
+PRODUCT_MODEL := Raspberry Pi 3
 PRODUCT_MANUFACTURER := brcm
 
 PRODUCT_AAPT_CONFIG := normal tvdpi hdpi

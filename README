@@ -38,3 +38,5 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
   kernel/rpi/arch/arm/boot/dts/bcm2710-rpi-3-b.dtb to p1:/
   kernel/rpi/arch/arm/boot/dts/overlays/vc4-kms-v3d.dtbo to p1:/overlays/vc4-kms-v3d.dtbo
   out/target/product/rpi3/ramdisk.img to p1:/
+
+Community forum : https://groups.google.com/forum/#!forum/android-rpi

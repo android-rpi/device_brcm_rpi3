@@ -47,4 +47,4 @@ PRODUCT_COPY_FILES := \
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
 PRODUCT_CHARACTERISTICS := tablet
-PRODUCT_LOCALES := en_US
+PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT

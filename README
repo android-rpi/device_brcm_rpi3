@@ -40,3 +40,6 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
   out/target/product/rpi3/ramdisk.img to p1:/
 
 Community forum : https://groups.google.com/forum/#!forum/android-rpi
+
+Graphics HAL of this build is Android port of Mesa with VC4 GPU 
+  : https://dri.freedesktop.org/wiki/VC4

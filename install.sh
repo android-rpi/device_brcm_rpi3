@@ -263,7 +263,7 @@ copy_files()
     sudo mount -t vfat -o rw ${DEVICE_LOCATION}1 $DIR_NAME
 
     echo "   - copying boot files"
-    sudo cp $BOOT_DIR/* $DIR_NAME/
+    sudo cp -fr $BOOT_DIR/* $DIR_NAME/
 
     echo "   - unmounting the boot partition"
     sudo umount $DIR_NAME

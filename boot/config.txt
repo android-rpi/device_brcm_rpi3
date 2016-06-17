@@ -3,8 +3,8 @@ hdmi_ignore_edid=0xa5000080
 hdmi_drive=1
 hdmi_group=2
 hdmi_mode=28
-config_hdmi_boost=5
 disable_overscan=1
+config_hdmi_boost=5
 kernel=zImage
 device_tree=bcm2710-rpi-3-b.dtb
 dtparam=audio=on
@@ -14,4 +14,3 @@ mask_gpu_interrupt0=0x400
 avoid_warnings=2
 gpu_mem=256
 enable_uart=1
-

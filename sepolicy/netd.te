@@ -1,2 +1,3 @@
 dontaudit netd self:capability sys_module;
 allow netd kernel:system module_request;
+allow netd self:netlink_netfilter_socket create_socket_perms;

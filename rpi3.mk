@@ -4,7 +4,7 @@ $(call inherit-product, device/brcm/rpi3/realtime/rtandroid.mk)
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
 PRODUCT_BRAND := Android
-PRODUCT_MODEL := Android on rpi3
+PRODUCT_MODEL := Raspberry Pi 3
 PRODUCT_MANUFACTURER := brcm
 
 # dalvik heap config

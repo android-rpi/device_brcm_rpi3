@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#
+# Raspberry 3 installation script for Android
+# Author: Igor Kalkov
+# GitHub: https://github.com/RTAndroid/android_device_brcm_rpi3/blob/aosp-n/install.sh
+#
+
 # global program variables
 DEVICE_LOCATION=""
 DEVICE_NAME=""

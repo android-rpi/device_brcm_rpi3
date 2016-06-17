@@ -1,10 +1,7 @@
 debug.drm.mode.force=1280x800
 ril.function.dataonly=1
-ro.adb.secure=0
 ro.opengles.version=131072
 ro.radio.noril=1
 ro.rfkilldisabled=1
-ro.secure=0
 ro.sf.lcd_density=213
 wifi.interface=wlan0
-qemu.hw.mainkeys=0

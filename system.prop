@@ -2,4 +2,3 @@ ro.opengles.version=131072
 ro.sf.lcd_density=213
 debug.drm.mode.force=1280x720
 wifi.interface=wlan0
-ro.rfkilldisabled=1

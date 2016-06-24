@@ -10,8 +10,8 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
 # Install python mako module
   sudo apt-get install python-mako
 
-# Patch frameworks/base
-  Do https://github.com/peyo-hd/device_brcm_rpi2/wiki#avoid-logcat-flood
+# Patch framework source : select as you want.
+  https://github.com/peyo-hd/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
  
 # Build Android source
  Continue build with http://source.android.com/source/building.html

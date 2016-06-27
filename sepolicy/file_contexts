@@ -1,2 +1,5 @@
 /dev/dri/card[0-9]+		u:object_r:dri_device:s0
 /dev/rfkill                     u:object_r:rfkill_device:s0
+/dev/ttyAMA0                    u:object_r:hci_attach_dev:s0
+
+/sys/class/rfkill/rfkill0/state u:object_r:sysfs_bluetooth_writable:s0

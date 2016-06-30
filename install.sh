@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Raspberry 3 installation script for Android
+# Android image installation script for Raspberry Pi 3
 # Author: Igor Kalkov
 # GitHub: https://github.com/RTAndroid/android_device_brcm_rpi3/blob/aosp-n/install.sh
 #
@@ -272,6 +272,7 @@ copy_files()
     sudo cp -fr $BOOT_DIR/* $DIR_NAME/
 
     echo "   - unmounting the boot partition"
+    sync
     sudo umount $DIR_NAME
     sudo rm -rf $DIR_NAME
 

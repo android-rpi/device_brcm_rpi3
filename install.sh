@@ -3,7 +3,7 @@
 #
 # Android image installation script for Raspberry Pi 3
 # Author: Igor Kalkov
-# GitHub: https://github.com/RTAndroid/android_device_brcm_rpi3/blob/aosp-n/install.sh
+# https://github.com/RTAndroid/android_device_brcm_rpi3/blob/aosp-n/install.sh
 #
 
 # global program variables
@@ -196,6 +196,7 @@ unmount_all()
 {
     echo " * Unmounting mouted partitions..."
 
+    sync
     sudo umount ${DEVICE_LOCATION}1 > /dev/null 2>&1
     sudo umount ${DEVICE_LOCATION}2 > /dev/null 2>&1
     sudo umount ${DEVICE_LOCATION}3 > /dev/null 2>&1

@@ -9,12 +9,10 @@
 # global program variables
 DEVICE_LOCATION=""
 DEVICE_NAME=""
-DEVICE_ID=""
 DEVICE_SIZE=""
-DEVICE_PATH=""
 PARTITION=false
 PARTITION_NEEDED=false
-USERDATA_FORMAT=false
+FORMAT=false
 
 # constants for the sdcard and partitions
 SIZE_P1=512   # exact size of the partition 1 (boot) in MB
@@ -206,7 +204,7 @@ unmount_all()
 format_data()
 {
     # no partitioning was requested
-    if [ "$USERDATA_FORMAT" = false ]; then
+    if [ "$FORMAT" = false ]; then
         echo " * Skipping data format..."
         return
     fi
@@ -290,7 +288,7 @@ while getopts ":fhp" flag; do
 case $flag in
     "h") SHOW_HELP=true ;;
     "p") PARTITION=true ;;
-    "f") USERDATA_FORMAT=true ;;
+    "f") FORMAT=true ;;
     *)
          echo ""
          echo "ERR: invalid option (-$flag $OPTARG)"
@@ -322,7 +320,7 @@ fi
 echo "Installation script for RPi started."
 echo "Target device: $DEVICE_LOCATION"
 echo "Perform partitioning: $PARTITION"
-echo "Perform formatting: $USERDATA_FORMAT"
+echo "Perform formatting: $FORMAT"
 echo ""
 
 check_device

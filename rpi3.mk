@@ -19,6 +19,13 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     EVWidgets
 
+# I2C tools
+PRODUCT_PACKAGES += \
+    i2cdetect \
+    i2cget \
+    i2cset \
+    i2cdump
+
 PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \

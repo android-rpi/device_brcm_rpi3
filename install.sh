@@ -10,6 +10,9 @@
 DEVICE_LOCATION=""
 DEVICE_NAME=""
 DEVICE_SIZE=""
+DEVICE_SUFFIX=""
+
+# internal flags
 PARTITION=false
 PARTITION_NEEDED=false
 FORMAT=false
@@ -71,11 +74,17 @@ check_device()
         echo "ERR: please use an sdcard with more than $SIZE_SD MB"
         exit 1
     fi
+
+    # some card readers mount the sdcard as /dev/mmcblkXp? instead of /dev/sdX?
+    if [[ $DEVICE_NAME == "mmcblk"* ]]; then
+        echo " * Using device suffix 'p' (mmcblk device)"
+        DEVICE_SUFFIX="p"
+    fi
 }
 
 check_partitions()
 {
-    PARTITION_COUNT=$(ls -al ${DEVICE_LOCATION}? | wc -l)
+    PARTITION_COUNT=$(ls -al ${DEVICE_LOCATION}${DEVICE_SUFFIX}? | wc -l)
     echo " * Detected $PARTITION_COUNT partitions on $DEVICE_LOCATION"
 
     # allow less partitions if we are going to re-partition it anyways
@@ -94,7 +103,12 @@ check_sizes()
 {
     echo " * Validating partition sizes..."
 
-    PARTITION1_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}1/size")
+    PARTITION1_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}${DEVICE_SUFFIX}1/size")
+    if [[ -z "$PARTITION1_SIZE_SECTORS" ]]; then
+        echo "ERR: can't detect the size of the boot partition!"
+        exit 1
+    fi
+
     PARTITION1_SIZE_MB=$(($PARTITION1_SIZE_SECTORS*512/1024/1024))
     echo "  - boot) available: $PARTITION1_SIZE_MB MB, required: $SIZE_P1 MB"
 
@@ -105,7 +119,12 @@ check_sizes()
         exit 1
     fi
 
-    PARTITION2_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}2/size")
+    PARTITION2_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}${DEVICE_SUFFIX}2/size")
+    if [[ -z "$PARTITION2_SIZE_SECTORS" ]]; then
+        echo "ERR: can't detect the size of the system partition!"
+        exit 1
+    fi
+
     PARTITION2_SIZE_MB=$(($PARTITION2_SIZE_SECTORS*512/1024/1024))
     echo "  - system) available: $PARTITION2_SIZE_MB MB, required: $SIZE_P2 MB"
 
@@ -116,7 +135,12 @@ check_sizes()
         exit 1
     fi
 
-    PARTITION3_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}3/size")
+    PARTITION3_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}${DEVICE_SUFFIX}3/size")
+    if [[ -z "$PARTITION3_SIZE_SECTORS" ]]; then
+        echo "ERR: can't detect the size of the cache partition!"
+        exit 1
+    fi
+
     PARTITION3_SIZE_MB=$(($PARTITION3_SIZE_SECTORS*512/1024/1024))
     echo "  - cache) available: $PARTITION3_SIZE_MB MB, required: $SIZE_P3 MB"
 
@@ -127,7 +151,12 @@ check_sizes()
         exit 1
     fi
 
-    PARTITION4_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}4/size")
+    PARTITION4_SIZE_SECTORS=$(cat "/sys/block/${DEVICE_NAME}/${DEVICE_NAME}${DEVICE_SUFFIX}4/size")
+    if [[ -z "$PARTITION4_SIZE_SECTORS" ]]; then
+        echo "ERR: can't detect the size of the data partition!"
+        exit 1
+    fi
+
     PARTITION4_SIZE_MB=$(($PARTITION4_SIZE_SECTORS*512/1024/1024))
     echo "  - data) available: $PARTITION4_SIZE_MB MB, required: $SIZE_P4 MB"
 
@@ -193,12 +222,12 @@ create_partitions()
 unmount_all()
 {
     echo " * Unmounting mouted partitions..."
-
     sync
-    sudo umount ${DEVICE_LOCATION}1 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}2 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}3 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}4 > /dev/null 2>&1
+
+    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}1 > /dev/null 2>&1
+    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}2 > /dev/null 2>&1
+    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}3 > /dev/null 2>&1
+    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}4 > /dev/null 2>&1
 }
 
 format_data()
@@ -213,11 +242,11 @@ format_data()
     local TEST=0
 
     echo "  - formatting 'cache'"
-    sudo mkfs.ext4 -L cache ${DEVICE_LOCATION}3
+    sudo mkfs.ext4 -L cache ${DEVICE_LOCATION}${DEVICE_SUFFIX}3
     ((TEST+=$?))
 
     echo "  - formatting 'userdata'"
-    sudo mkfs.ext4 -L userdata ${DEVICE_LOCATION}4
+    sudo mkfs.ext4 -L userdata ${DEVICE_LOCATION}${DEVICE_SUFFIX}4
     ((TEST+=$?))
 
     if [[ $TEST -gt 0 ]]; then
@@ -232,11 +261,11 @@ format_system()
     local TEST=0
 
     echo "  - formatting 'boot'"
-    sudo mkfs.vfat -n boot -F 32 ${DEVICE_LOCATION}1
+    sudo mkfs.vfat -n boot -F 32 ${DEVICE_LOCATION}${DEVICE_SUFFIX}1
     ((TEST+=$?))
 
     echo "  - formatting 'system'"
-    sudo mkfs.ext4 -L system ${DEVICE_LOCATION}2
+    sudo mkfs.ext4 -L system ${DEVICE_LOCATION}${DEVICE_SUFFIX}2
     ((TEST+=$?))
 
     if [[ $TEST -gt 0 ]]; then
@@ -265,7 +294,7 @@ copy_files()
     echo "   - mounting the boot partition to $DIR_NAME"
     sudo rm -rf $DIR_NAME > /dev/null 2>&1
     sudo mkdir -p $DIR_NAME
-    sudo mount -t vfat -o rw ${DEVICE_LOCATION}1 $DIR_NAME
+    sudo mount -t vfat -o rw ${DEVICE_LOCATION}${DEVICE_SUFFIX}1 $DIR_NAME
 
     echo "   - copying boot files"
     sudo cp -fr $BOOT_DIR/* $DIR_NAME/
@@ -276,7 +305,7 @@ copy_files()
     sudo rm -rf $DIR_NAME
 
     echo "   - writing the system image"
-    sudo dd if=$SYSTEM_IMG of=${DEVICE_LOCATION}2 bs=1M
+    sudo dd if=$SYSTEM_IMG of=${DEVICE_LOCATION}${DEVICE_SUFFIX}2 bs=1M
 }
 
 # --------------------------------------

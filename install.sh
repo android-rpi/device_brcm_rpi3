@@ -37,17 +37,24 @@ EOF
 
 check_device()
 {
+    echo " * Checking access permissions..."
+
+    if [ "$(sudo id -u)" != "0" ]; then
+        echo "ERR: please make sure you are allowed to run 'sudo'!"
+        exit 1
+    fi
+
     echo " * Checking the device in $DEVICE_LOCATION..."
 
     if [[ -z "$DEVICE_LOCATION" ]]; then
         echo ""
-        echo "ERR: device location not valid"
+        echo "ERR: device location not valid."
         exit 1
     fi
 
     if [[ ! -b "$DEVICE_LOCATION" ]]; then
         echo ""
-        echo "ERR: no block device was found in $DEVICE_LOCATION"
+        echo "ERR: no block device was found in $DEVICE_LOCATION!"
         exit 1
     fi
 
@@ -59,7 +66,7 @@ check_device()
 
     if [[ ! -f "$SIZE_FILE" ]]; then
         echo ""
-        echo "ERR: can't detect the size of the sdcard"
+        echo "ERR: can't detect the size of the sdcard!"
     fi
 
     REQUIRED_SIZE_MB=$((SIZE_P1 + SIZE_P2 + SIZE_P3 + SIZE_P4))
@@ -71,7 +78,7 @@ check_device()
 
     if [[ $DEVICE_SIZE_MB -lt $REQUIRED_SIZE_MB ]]; then
         echo ""
-        echo "ERR: please use an sdcard with more than $SIZE_SD MB"
+        echo "ERR: please use an sdcard with more than $SIZE_SD MB."
         exit 1
     fi
 
@@ -94,7 +101,7 @@ check_partitions()
     fi
 
     if [ "${PARTITION_COUNT:-0}" -ne 4 ]; then
-        echo "ERR: bad device in $DEVICE_LOCATION"
+        echo "ERR: bad device in $DEVICE_LOCATION!"
         exit 1
     fi
 }
@@ -176,38 +183,63 @@ create_partitions()
         return
     fi
 
-    echo " * Start partitioning..."
+    echo " * Destroying old partition table..."
     local TEST=0
 
-    # destroy the old partition table
-    sudo dd if=/dev/zero of=$DEVICE_LOCATION bs=1024 count=1 conv=notrunc
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION > /dev/null 2>&1
+
+    sudo dd if=/dev/zero of=$DEVICE_LOCATION bs=1024 count=1 conv=notrunc > /dev/null 2>&1
+    ((TEST+=$?))
+
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION > /dev/null 2>&1
+
+    echo " * Create a new partition table..."
+
+    printf "o\nw\n" | sudo fdisk $DEVICE_LOCATION > /dev/null 2>&1
     ((TEST+=$?))
 
     # re-read the partition table
     sudo partprobe $DEVICE_LOCATION
 
-    # write new partition table
-    printf "o\nw\n" | sudo fdisk $DEVICE_LOCATION
-    ((TEST+=$?))
+    if [[ $TEST -gt 0 ]]; then
+        echo "ERR: failed to recreate the partition table!"
+        exit 1
+    fi
 
-    # add partition 1 (512MB) -> boot
+    echo " * Start partitioning..."
+
+    # add partition 1 (min 512 MB) -> boot
     printf "n\np\n1\n\n+${SIZE_P1}M\nw\n" | sudo fdisk $DEVICE_LOCATION
     ((TEST+=$?))
 
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION
+
     # set it as bootable with partition type "W95 FAT32 (LBA)"
-    printf "a\n1\nt\n1\nc\nw\n" | sudo fdisk $DEVICE_LOCATION
+    printf "a\n1\nt\nc\nw\n" | sudo fdisk $DEVICE_LOCATION
     ((TEST=$?))
 
-    # add partition 2 (1024MB) -> system
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION
+
+    # add partition 2 (min 1024 MB) -> system
     printf "n\np\n2\n\n+${SIZE_P2}M\nw\n" | sudo fdisk $DEVICE_LOCATION
     ((TEST+=$?))
 
-    # add partition 3 (512MB) -> cache
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION
+
+    # add partition 3 (min 512 MB) -> cache
     printf "n\np\n3\n\n+${SIZE_P3}M\nw\n" | sudo fdisk $DEVICE_LOCATION
     ((TEST+=$?))
 
+    # re-read the partition table
+    sudo partprobe $DEVICE_LOCATION
+
     # add partition 4 (rest of disk) -> userdata
-    printf "n\np\n3\n\n\nw\n" | sudo fdisk $DEVICE_LOCATION
+    printf "n\np\n\n\nw\n" | sudo fdisk $DEVICE_LOCATION
     ((TEST=$?))
 
     # re-read the partition table

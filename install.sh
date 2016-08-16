@@ -19,7 +19,7 @@ FORMAT=false
 
 # constants for the sdcard and partitions
 SIZE_P1=512   # exact size of the partition 1 (boot) in MB
-SIZE_P2=1024  # exact size of the partition 2 (system) in MB
+SIZE_P2=2048  # exact size of the partition 2 (system) in MB
 SIZE_P3=512   # exact size of the partition 3 (cache) in MB
 SIZE_P4=1024  # minimum size of the partition 4 (userdata) in MB
 

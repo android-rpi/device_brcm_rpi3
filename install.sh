@@ -96,7 +96,7 @@ check_partitions()
 
     # allow less partitions if we are going to re-partition it anyways
     if [ "$PARTITION" = true ]; then
-        echo " - ignoring this count due to upcoming partitioning"
+        echo "  - ignoring this count due to upcoming partitioning"
         PARTITION_COUNT=4
     fi
 
@@ -210,45 +210,62 @@ create_partitions()
 
     echo " * Start partitioning..."
 
-    # add partition 1 (min 512 MB) -> boot
+    # add partition 1 -> boot
+    echo ""
+    echo "  - creating 'boot'"
     printf "n\np\n1\n\n+${SIZE_P1}M\nw\n" | sudo fdisk $DEVICE_LOCATION
+
+    # re-read the partition table
     ((TEST+=$?))
+    sudo partprobe
 
-    # re-read the partition table
-    sudo partprobe $DEVICE_LOCATION
+    # set the first partition as bootable
+    echo ""
+    echo "  - setting bootable flag"
+    printf "a\n1\nw\n" | sudo fdisk $DEVICE_LOCATION
 
-    # set it as bootable with partition type "W95 FAT32 (LBA)"
-    printf "a\n1\nt\nc\nw\n" | sudo fdisk $DEVICE_LOCATION
-    ((TEST=$?))
+    # set the partition type to "W95 FAT32 (LBA)"
+    echo ""
+    echo "  - setting correct partition type"
+    printf "t\nc\nw\n" | sudo fdisk $DEVICE_LOCATION
 
-    # re-read the partition table
-    sudo partprobe $DEVICE_LOCATION
-
-    # add partition 2 (min 1024 MB) -> system
+    # add partition 2 -> system
+    echo ""
+    echo "  - creating 'system'"
     printf "n\np\n2\n\n+${SIZE_P2}M\nw\n" | sudo fdisk $DEVICE_LOCATION
-    ((TEST+=$?))
 
     # re-read the partition table
-    sudo partprobe $DEVICE_LOCATION
+    ((TEST+=$?))
+    sudo partprobe
 
-    # add partition 3 (min 512 MB) -> cache
+    # add partition 3 -> cache
+    echo ""
+    echo "  - creating 'cache'"
     printf "n\np\n3\n\n+${SIZE_P3}M\nw\n" | sudo fdisk $DEVICE_LOCATION
+
+    # re-read the partition table
     ((TEST+=$?))
+    sudo partprobe
 
-    # re-read the partition table
-    sudo partprobe $DEVICE_LOCATION
-
-    # add partition 4 (rest of disk) -> userdata
+    # add partition 4 -> userdata
+    echo ""
+    echo "  - creating 'userdata'"
     printf "n\np\n\n\nw\n" | sudo fdisk $DEVICE_LOCATION
-    ((TEST=$?))
 
     # re-read the partition table
-    sudo partprobe $DEVICE_LOCATION
+    ((TEST+=$?))
+    sudo partprobe
 
     if [[ $TEST -gt 0 ]]; then
         echo "ERR: an error while partitioning occured."
         exit 1
     fi
+
+    echo ""
+    echo " * Printing the new partition table..."
+
+    printf "p\nq\n" | sudo fdisk $DEVICE_LOCATION
+    echo ""
 }
 
 unmount_all()
@@ -274,10 +291,12 @@ format_data()
     local TEST=0
 
     echo "  - formatting 'cache'"
+    echo ""
     sudo mkfs.ext4 -L cache ${DEVICE_LOCATION}${DEVICE_SUFFIX}3
     ((TEST+=$?))
 
     echo "  - formatting 'userdata'"
+    echo ""
     sudo mkfs.ext4 -L userdata ${DEVICE_LOCATION}${DEVICE_SUFFIX}4
     ((TEST+=$?))
 
@@ -293,10 +312,13 @@ format_system()
     local TEST=0
 
     echo "  - formatting 'boot'"
+    echo ""
     sudo mkfs.vfat -n boot -F 32 ${DEVICE_LOCATION}${DEVICE_SUFFIX}1
     ((TEST+=$?))
 
+    echo ""
     echo "  - formatting 'system'"
+    echo ""
     sudo mkfs.ext4 -L system ${DEVICE_LOCATION}${DEVICE_SUFFIX}2
     ((TEST+=$?))
 

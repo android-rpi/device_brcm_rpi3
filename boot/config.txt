@@ -1,6 +1,6 @@
 hdmi_force_hotplug=1
 hdmi_ignore_edid=0xa5000080
-hdmi_drive=1
+hdmi_drive=2
 hdmi_group=2
 hdmi_mode=28
 disable_overscan=1

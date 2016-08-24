@@ -1,4 +1,4 @@
-Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
+Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
 
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
@@ -10,7 +10,7 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
 # Install python mako module
   sudo apt-get install python-mako
 
-# Patch framework source : select as you want.
+# Patch framework source :
   https://github.com/peyo-hd/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
  
 # Build Android source
@@ -38,6 +38,9 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/npv
   kernel/rpi/arch/arm/boot/dts/bcm2710-rpi-3-b.dtb to p1:/
   kernel/rpi/arch/arm/boot/dts/overlays/vc4-kms-v3d.dtbo to p1:/overlays/vc4-kms-v3d.dtbo
   out/target/product/rpi3/ramdisk.img to p1:/
+
+# Put LeanbackLauncher :
+  https://github.com/peyo-hd/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher
 
 Community forum : https://groups.google.com/forum/#!forum/android-rpi
 

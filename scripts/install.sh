@@ -39,6 +39,10 @@ SIZE_P2=2048  # exact size of the partition 2 (system) in MB
 SIZE_P3=512   # exact size of the partition 3 (cache) in MB
 SIZE_P4=1024  # minimum size of the partition 4 (userdata) in MB
 
+# ------------------------------------------------
+# Helping functions
+# ------------------------------------------------
+
 show_help()
 {
 cat << EOF
@@ -289,10 +293,10 @@ unmount_all()
     echo " * Unmounting mouted partitions..."
     sync
 
-    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}1 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}2 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}3 > /dev/null 2>&1
-    sudo umount ${DEVICE_LOCATION}${DEVICE_SUFFIX}4 > /dev/null 2>&1
+    sudo umount -l ${DEVICE_LOCATION}${DEVICE_SUFFIX}1 > /dev/null 2>&1
+    sudo umount -l ${DEVICE_LOCATION}${DEVICE_SUFFIX}2 > /dev/null 2>&1
+    sudo umount -l ${DEVICE_LOCATION}${DEVICE_SUFFIX}3 > /dev/null 2>&1
+    sudo umount -l ${DEVICE_LOCATION}${DEVICE_SUFFIX}4 > /dev/null 2>&1
 }
 
 format_data()
@@ -371,7 +375,7 @@ copy_files()
 
     echo "   - unmounting the boot partition"
     sync
-    sudo umount $DIR_NAME
+    sudo umount -l $DIR_NAME
     sudo rm -rf $DIR_NAME
 
     echo "   - writing the system image"
@@ -400,7 +404,7 @@ done
 # don't do anything else
 if [[ "$SHOW_HELP" = true ]]; then
     show_help
-    exit
+    exit 1
 fi
 
 # what left after the parameters has to be the device
@@ -413,7 +417,7 @@ if [[ -z "$DEVICE_LOCATION" ]]; then
     echo "ERR: missing the path to the sdcard!"
     echo ""
     show_help
-    exit
+    exit 1
 fi
 
 echo "Installation script for RPi started."
@@ -423,6 +427,7 @@ echo "Perform formatting: $FORMAT"
 echo ""
 
 check_device
+unmount_all
 check_partitions
 create_partitions
 check_sizes

@@ -39,6 +39,10 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
   kernel/rpi/arch/arm/boot/dts/overlays/vc4-kms-v3d.dtbo to p1:/overlays/vc4-kms-v3d.dtbo
   out/target/product/rpi3/ramdisk.img to p1:/
 
+# HDMI_MODE : If DVI monitor does not work, try followings for p1:/config.txt
+  hdmi_group=2
+  hdmi_mode=85
+
 # Put LeanbackLauncher :
   https://github.com/peyo-hd/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher
 

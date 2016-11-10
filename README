@@ -18,6 +18,9 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
  $ source build/envsetup.sh
  $ lunch rpi3-eng
  $ make
+ 
+# If build fails with Jack GC running ou of memory add the following line to BoardConfig.mk
+ ANDROID_JACK_VM_ARGS := -Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.

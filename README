@@ -19,8 +19,8 @@ Read it first : https://github.com/android-rpi/local_manifests
  $ lunch rpi3-eng
  $ make
  
-# If build fails with Jack GC running ou of memory add the following line to BoardConfig.mk
- ANDROID_JACK_VM_ARGS := -Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m
+# Help for build failure :
+   https://github.com/android-rpi/device_brcm_rpi3/wiki/Build-Errors
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.
@@ -46,5 +46,5 @@ Read it first : https://github.com/android-rpi/local_manifests
   hdmi_group=2
   hdmi_mode=85
 
-# Put LeanbackLauncher :
+# How to put Android-TV launcher :
   https://github.com/android-rpi/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher

@@ -1,4 +1,4 @@
-Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
+Read it first : https://github.com/android-rpi/local_manifests
 
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
@@ -11,7 +11,7 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
   sudo apt-get install python-mako
 
 # Patch framework source :
-  https://github.com/peyo-hd/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
+  https://github.com/android-rpi/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
  
 # Build Android source
  Continue build with http://source.android.com/source/building.html
@@ -19,8 +19,8 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
  $ lunch rpi3-eng
  $ make
  
-# If build fails with Jack GC running ou of memory add the following line to BoardConfig.mk
- ANDROID_JACK_VM_ARGS := -Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m
+# Help for build failure :
+   https://github.com/android-rpi/device_brcm_rpi3/wiki/Build-Errors
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.
@@ -46,10 +46,5 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/nougat
   hdmi_group=2
   hdmi_mode=85
 
-# Put LeanbackLauncher :
-  https://github.com/peyo-hd/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher
-
-Community forum : https://groups.google.com/forum/#!forum/android-rpi
-
-Graphics HAL of this build is Android port of Mesa with VC4 GPU 
-  : https://dri.freedesktop.org/wiki/VC4
+# How to put Android-TV launcher :
+  https://github.com/android-rpi/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher

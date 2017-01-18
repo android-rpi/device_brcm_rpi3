@@ -15,19 +15,16 @@
     <!-- This device does not allow sms service. -->
     <bool name="config_sms_capable">false</bool>
 
-    <!-- Control the default UI mode type to use when there is no other type override
-         happening.  One of the following values (See Configuration.java):
-             1  UI_MODE_TYPE_NORMAL
-             4  UI_MODE_TYPE_TELEVISION
-             5  UI_MODE_TYPE_APPLIANCE
-         Any other values will have surprising consequences. -->
-    <integer name="config_defaultUiModeType">4</integer>
+    <!-- Force software navigation bar -->
+    <bool name="config_showNavigationBar">true</bool>
 
-    <!-- Override long press on home: launch assist intent. -->
-    <integer name="config_longPressOnHomeBehavior">2</integer>
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">false</bool>
 
-    <!-- Override configuration check for dpad so that we always appear to have one -->
-    <bool name="config_hasPermanentDpad">true</bool>
+    <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
+    <bool name="config_unplugTurnsOnScreen">false</bool>
+
+    <!-- Flag indicating that this device does not rotate will always remain in its default orientation. -->
     <bool name="config_forceDefaultOrientation">true</bool>
 
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],

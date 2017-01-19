@@ -18,13 +18,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# I2C tools
-PRODUCT_PACKAGES += \
-    i2cdetect \
-    i2cget \
-    i2cset \
-    i2cdump
-
 # Overwrite the define in order to set our files first
 PRODUCT_COPY_FILES := \
     device/generic/goldfish/camera/media_profiles.xml:system/etc/media_profiles.xml \

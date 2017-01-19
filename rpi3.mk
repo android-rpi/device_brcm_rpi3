@@ -14,6 +14,7 @@ PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_PRODUCT) \
     gralloc.$(TARGET_PRODUCT) \
     hwcomposer.$(TARGET_PRODUCT) \
+    Launcher3 \
     libGLES_mesa \
     wpa_supplicant \
     wpa_supplicant.conf

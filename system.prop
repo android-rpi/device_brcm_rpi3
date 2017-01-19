@@ -1,4 +1,10 @@
-ro.opengles.version=131072
-ro.sf.lcd_density=213
 debug.drm.mode.force=1280x720
+ril.function.dataonly=1
+ro.build.selinux=1
+ro.build.characteristics=tablet
+ro.hdmi.device_type=4
+ro.opengles.version=131072
+ro.radio.noril=1
+ro.rfkilldisabled=1
+ro.sf.lcd_density=160
 wifi.interface=wlan0

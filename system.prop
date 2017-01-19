@@ -6,5 +6,5 @@ ro.hdmi.device_type=4
 ro.opengles.version=131072
 ro.radio.noril=1
 ro.rfkilldisabled=1
-ro.sf.lcd_density=213
+ro.sf.lcd_density=160
 wifi.interface=wlan0

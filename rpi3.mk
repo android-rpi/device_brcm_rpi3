@@ -18,10 +18,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Additional RTAndroid packages
-PRODUCT_PACKAGES += \
-    PowerOff
-
 # I2C tools
 PRODUCT_PACKAGES += \
     i2cdetect \

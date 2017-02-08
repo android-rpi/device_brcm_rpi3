@@ -35,7 +35,7 @@ Read it first : https://github.com/android-rpi/local_manifests
   $ cd out/target/product/rpi3
   $ sudo dd if=system.img of=/dev/<p2> bs=1M
   
-# Boot partition, kernel & ramdisk
+# Copy kernel & ramdisk to BOOT partition
   device/brcm/rpi3/boot/* to p1:/
   kernel/rpi/arch/arm/boot/zImage to p1:/
   kernel/rpi/arch/arm/boot/dts/bcm2710-rpi-3-b.dtb to p1:/

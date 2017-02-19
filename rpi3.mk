@@ -1,5 +1,4 @@
-USE_OEM_TV_APP := true
-$(call inherit-product, device/google/atv/products/atv_base.mk)
+$(call inherit-product, build/target/product/aosp_arm.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
@@ -7,18 +6,15 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := Raspberry Pi 3
 PRODUCT_MANUFACTURER := brcm
 
-PRODUCT_AAPT_CONFIG := normal tvdpi hdpi
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
+PRODUCT_AAPT_CONFIG := normal large xlarge mdpi hdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 # application packages
 PRODUCT_PACKAGES += \
-    Launcher2 \
-    LeanbackLauncher \
-    Settings \
-    Browser2
-
+    Launcher3
+    
 # system packages
 PRODUCT_PACKAGES += \
     libGLES_mesa \
@@ -64,5 +60,5 @@ PRODUCT_COPY_FILES := \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
-PRODUCT_CHARACTERISTICS := tv
+PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT

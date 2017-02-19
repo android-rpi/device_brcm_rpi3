@@ -1,14 +1,14 @@
 hdmi_force_hotplug=1
 hdmi_drive=2
-config_hdmi_boost=4
-hdmi_group=1
-hdmi_mode=4
+hdmi_group=2
+hdmi_mode=85
 disable_overscan=1
-framebuffer_width=1280
-framebuffer_height=720
+config_hdmi_boost=5
 kernel=zImage
 device_tree=bcm2710-rpi-3-b.dtb
 dtparam=audio=on
+dtparam=i2c1=on
+dtparam=i2c_arm=on
 dtoverlay=vc4-kms-v3d,cma-256
 initramfs ramdisk.img 0x01f00000
 mask_gpu_interrupt0=0x400

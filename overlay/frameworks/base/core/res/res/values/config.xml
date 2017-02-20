@@ -5,7 +5,7 @@
          key usage.  This adds noticeable additional overhead to volume key processing, so
          is disableable for products for which it is irrelevant. -->
     <bool name="config_useVolumeKeySounds">false</bool>
-	
+
     <!-- Disable AUDIO_BECOMING_NOISY notifications. -->
     <bool name="config_sendAudioBecomingNoisy">false</bool>
 
@@ -45,6 +45,5 @@
         <item>"1,1"</item>
         <item>"9,1"</item>
     </string-array>
-
 
 </resources>

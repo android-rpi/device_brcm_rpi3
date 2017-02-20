@@ -11,14 +11,14 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
-
 # application packages
 PRODUCT_PACKAGES += \
     Launcher3
-    
+
 # system packages
 PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_PRODUCT) \
+    audio.usb.default \
     gralloc.$(TARGET_PRODUCT) \
     hwcomposer.$(TARGET_PRODUCT) \
     libGLES_mesa \

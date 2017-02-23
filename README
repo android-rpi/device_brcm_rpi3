@@ -25,7 +25,7 @@ Read it first : https://github.com/android-rpi/local_manifests
 # Prepare sd card
  Partitions of the card should be set-up like followings.
   p1 512MB for BOOT : Do fdisk : W95 FAT32(LBA) & Bootable, mkfs.vfat
-  p2 512MB for /system : Do fdisk, new primary partition
+  p2 1024MB for /system : Do fdisk, new primary partition
   p3 512MB for /cache  : Do fdisk, mkfs.ext4
   p4 remainings for /data : Do fdisk, mkfs.ex4
  Set volume label for each partition - system, cache, userdata

@@ -1,4 +1,4 @@
-debug.drm.mode.force=1280x720
+#debug.drm.mode.force=1280x720
 ril.function.dataonly=1
 ro.build.selinux=1
 ro.build.characteristics=tablet

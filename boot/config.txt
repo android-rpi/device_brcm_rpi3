@@ -15,3 +15,5 @@ mask_gpu_interrupt0=0x400
 avoid_warnings=2
 gpu_mem=256
 enable_uart=1
+framebuffer_width=1280
+framebuffer_height=720

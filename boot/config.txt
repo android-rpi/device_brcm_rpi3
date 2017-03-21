@@ -13,5 +13,4 @@ dtoverlay=vc4-kms-v3d,cma-256
 initramfs ramdisk.img 0x01f00000
 mask_gpu_interrupt0=0x400
 avoid_warnings=2
-gpu_mem=256
 enable_uart=1

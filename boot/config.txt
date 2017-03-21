@@ -9,7 +9,7 @@ device_tree=bcm2710-rpi-3-b.dtb
 dtparam=audio=on
 dtparam=i2c1=on
 dtparam=i2c_arm=on
-dtoverlay=vc4-kms-v3d,cma-256
+dtoverlay=vc4-fkms-v3d,cma-256
 initramfs ramdisk.img 0x01f00000
 mask_gpu_interrupt0=0x400
 avoid_warnings=2

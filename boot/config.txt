@@ -5,7 +5,6 @@ hdmi_mode=85
 disable_overscan=1
 config_hdmi_boost=5
 kernel=zImage
-device_tree=bcm2710-rpi-3-b.dtb
 dtparam=audio=on
 dtparam=i2c1=on
 dtparam=i2c_arm=on

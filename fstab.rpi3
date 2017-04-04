@@ -4,7 +4,6 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 /dev/block/mmcblk0p2    /system             ext4      ro                                                    wait
-/dev/block/mmcblk0p3    /cache              ext4      noatime,nosuid,nodev,nomblk_io_submit,errors=panic    wait
-/dev/block/mmcblk0p4    /data               ext4      noatime,nosuid,nodev,nomblk_io_submit,errors=panic    wait
+/dev/block/mmcblk0p3    /data               ext4      noatime,nosuid,nodev,nomblk_io_submit,errors=panic    wait
 
 /devices/platform/soc/*.usb/usb*     auto   auto      defaults                                              voldmanaged=usb:auto

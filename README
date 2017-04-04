@@ -17,7 +17,7 @@ Read it first : https://github.com/android-rpi/local_manifests
  Continue build with http://source.android.com/source/building.html
  $ source build/envsetup.sh
  $ lunch rpi3-eng
- $ make
+ $ make ramdisk systemimage
  
 # Help for build failure :
    https://github.com/android-rpi/device_brcm_rpi3/wiki/Build-Errors

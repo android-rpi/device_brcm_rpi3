@@ -1,0 +1,14 @@
+diff --git a/media/libstagefright/colorconversion/SoftwareRenderer.cpp b/media/libstagefright/colorconversion/SoftwareRenderer.cpp
+index bbc4d26..1aefa9d 100644
+--- a/media/libstagefright/colorconversion/SoftwareRenderer.cpp
++++ b/media/libstagefright/colorconversion/SoftwareRenderer.cpp
+@@ -112,9 +112,6 @@ void SoftwareRenderer::resetFormatIfChanged(const sp<AMessage> &format) {
+             case OMX_COLOR_FormatYUV420SemiPlanar:
+             case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+             {
+-                halFormat = HAL_PIXEL_FORMAT_YV12;
+-                bufWidth = (mCropWidth + 1) & ~1;
+-                bufHeight = (mCropHeight + 1) & ~1;
+                 break;
+             }
+             case OMX_COLOR_Format24bitRGB888:

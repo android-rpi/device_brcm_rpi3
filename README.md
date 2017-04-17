@@ -12,14 +12,12 @@ Read it first : https://github.com/android-rpi/local_manifests
 
 ## Install python mako module
 
+
  `sudo apt-get install python-mako`
 
 ## Patch framework source :
 
- ```
- $ cd $WORKING_DIR
- $ sh device/brcm/rpi3/patches/install.sh
- ```
+https://github.com/android-rpi/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
  
 ## Build Android source
 

@@ -1,7 +1,9 @@
 Read it first : https://github.com/android-rpi/local_manifests
 
+# Install gcc-arm-linux-gnueabihf
+sudo apt-get install gcc-arm-linux-gnueabihf
+
 # Build Kernel
- Install gcc-arm-linux-gnueabihf
  $ cd kernel/rpi
  $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig android/configs/android-base.cfg android/configs/android-recommended.cfg
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make zImage

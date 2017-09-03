@@ -20,8 +20,8 @@ on post-fs-data
 
     # Bluetooth
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1

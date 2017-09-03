@@ -1,1 +1,0 @@
-allow wpa self:netlink_generic_socket create_socket_perms;

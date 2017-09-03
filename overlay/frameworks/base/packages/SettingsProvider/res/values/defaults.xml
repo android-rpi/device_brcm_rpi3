@@ -32,4 +32,6 @@
     <!-- Do not give up on DHCP -->
     <integer name="def_max_dhcp_retries">0</integer>
 
+    <bool name="def_backup_enabled">false</bool>
+
 </resources>

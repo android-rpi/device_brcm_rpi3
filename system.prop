@@ -1,4 +1,0 @@
-debug.drm.mode.force=1280x720
-ro.opengles.version=131072
-ro.sf.lcd_density=213
-wifi.interface=wlan0

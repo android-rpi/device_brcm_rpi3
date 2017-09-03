@@ -1,2 +1,2 @@
-/dev/ttyAMA0              0660   bluetooth  net_bt_stack
-/dev/rfkill               0660   bluetooth  net_bt_stack
+/dev/ttyAMA0              0660   bluetooth  bluetooth
+/dev/rfkill               0660   bluetooth  bluetooth

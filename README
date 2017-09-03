@@ -3,7 +3,7 @@ Read it first : https://github.com/android-rpi/local_manifests
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
  $ cd kernel/rpi
- $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig android/configs/android-base.cfg android/configs/android-recommended.cfg
+ $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig kernel/configs/android-base.config kernel/configs/android-recommended.config
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make zImage
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make dtbs
 
@@ -11,16 +11,13 @@ Read it first : https://github.com/android-rpi/local_manifests
   sudo apt-get install python-mako
 
 # Patch framework source :
-  https://github.com/android-rpi/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888
- 
+  https://github.com/android-rpi/device_brcm_rpi3/wiki/Oreo-:-patch-framework-source
+
 # Build Android source
  Continue build with http://source.android.com/source/building.html
  $ source build/envsetup.sh
  $ lunch rpi3-eng
  $ make ramdisk systemimage
- 
-# Help for build failure :
-   https://github.com/android-rpi/device_brcm_rpi3/wiki/Build-Errors
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.
@@ -45,6 +42,3 @@ Read it first : https://github.com/android-rpi/local_manifests
 # HDMI_MODE : If DVI monitor does not work, try followings for p1:/config.txt
   hdmi_group=2
   hdmi_mode=85
-
-# How to put Android-TV launcher :
-  https://github.com/android-rpi/device_brcm_rpi3/wiki#how-to-apply-android-tv-leanback-launcher

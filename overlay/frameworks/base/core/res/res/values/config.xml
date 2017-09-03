@@ -23,8 +23,14 @@
          Any other values will have surprising consequences. -->
     <integer name="config_defaultUiModeType">4</integer>
 
-    <!-- Override long press on home: launch assist intent. -->
-    <integer name="config_longPressOnHomeBehavior">2</integer>
+    <!-- Control the behavior when the user long presses the home button.
+            0 - Nothing
+            1 - Recent apps view in SystemUI
+            2 - Launch assist intent
+         This needs to match the constants in
+         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+    -->
+    <integer name="config_longPressOnHomeBehavior">0</integer>
 
     <!-- Override configuration check for dpad so that we always appear to have one -->
     <bool name="config_hasPermanentDpad">true</bool>
@@ -46,6 +52,17 @@
     <string-array translatable="false" name="radioAttributes">
         <item>"1,1"</item>
         <item>"9,1"</item>
+    </string-array>
+
+    <!-- Apps that are authorized to access shared accounts -->
+    <string name="config_appsAuthorizedForSharedAccounts">;com.android.tv.settings;</string>
+
+    <!--
+       Sets the package names whose certificates should be used to
+       verify location providers are allowed to be loaded.
+    -->
+    <string-array name="config_locationProviderPackageNames" translatable="false">
+        <item>com.android.location.fused</item>
     </string-array>
 
 </resources>

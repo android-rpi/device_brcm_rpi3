@@ -13,12 +13,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.drm.mode.force=1280x720 \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
+    ro.config.low_ram=true \
     wifi.interface=wlan0
 
 # application packages
 PRODUCT_PACKAGES += \
-    Launcher2 \
-    Settings
+    RpLauncher
 
 # system packages
 PRODUCT_PACKAGES += \

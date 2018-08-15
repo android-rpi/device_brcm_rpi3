@@ -1,4 +1,5 @@
 /dev/dri/card[0-9]+		u:object_r:dri_device:s0
+/dev/dri/renderD128		u:object_r:dri_device:s0
 /dev/rfkill                     u:object_r:rfkill_device:s0
 /dev/ttyAMA0                    u:object_r:hci_attach_dev:s0
 

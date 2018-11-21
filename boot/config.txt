@@ -7,7 +7,8 @@ disable_overscan=1
 framebuffer_width=1280
 framebuffer_height=720
 kernel=zImage
-device_tree=bcm2710-rpi-3-b.dtb
+#device_tree=bcm2710-rpi-3-b.dtb
+device_tree=bcm2710-rpi-3-b-plus.dtb
 dtparam=audio=on
 dtoverlay=vc4-kms-v3d,cma-256
 initramfs ramdisk.img 0x01f00000

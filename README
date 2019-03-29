@@ -8,7 +8,7 @@ Read it first : https://github.com/android-rpi/local_manifests
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make dtbs
 
 # Install python mako module
-  sudo apt-get install python-mako
+  sudo apt-get install python-mako (or use sudo pip install mako)
 
 # Patch framework source :
   https://github.com/android-rpi/device_brcm_rpi3/wiki#use-hal_pixel_format_bgra_8888

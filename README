@@ -1,4 +1,4 @@
-Read it first : https://github.com/peyo-hd/local_manifests/tree/ppv
+Read it first : https://github.com/android-rpi/local_manifests/tree/pie
 
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
@@ -11,7 +11,7 @@ Read it first : https://github.com/peyo-hd/local_manifests/tree/ppv
   sudo apt-get install python-mako
 
 # Patch framework source :
-  https://github.com/peyo-hd/device_brcm_rpi3/wiki/P-preview-:-patch-framework-source
+  https://github.com/android-rpi/device_brcm_rpi3/wiki/Pie-:-patch-framework-source
 
 # Build Android source
  Continue build with http://source.android.com/source/building.html

@@ -35,7 +35,7 @@ Read it first : https://github.com/android-rpi/local_manifests/tree/pie
   device/brcm/rpi3/boot/* to p1:/
   kernel/rpi/arch/arm/boot/zImage to p1:/
   kernel/rpi/arch/arm/boot/dts/bcm2710-rpi-3-b.dtb to p1:/
-  kernel/rpi/arch/arm/boot/dts/overlays/vc4-kms-v3d.dtbo to p1:/overlays/vc4-kms-v3d.dtbo
+  kernel/rpi/arch/arm/boot/dts/overlays/vc4-kms-v3d.dtbo to p1:/overlays/
   out/target/product/rpi3/ramdisk.img to p1:/
 
 # HDMI_MODE : If DVI monitor does not work, try followings for p1:/config.txt

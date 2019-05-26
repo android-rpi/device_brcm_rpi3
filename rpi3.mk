@@ -25,6 +25,7 @@ PRODUCT_PACKAGES += \
     libGLES_mesa \
     gralloc.rpi3 \
     hwcomposer.rpi3 \
+    memtrack.rpi3 \
     audio.primary.rpi3 \
     audio.usb.default \
     wpa_supplicant \
@@ -39,6 +40,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.keymaster@3.0-impl \
+    android.hardware.memtrack@1.0-service \
     android.hardware.memtrack@1.0-impl
 
 # system configurations

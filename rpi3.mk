@@ -52,7 +52,6 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml \
     $(LOCAL_PATH)/rpi3_core_hardware.xml:system/etc/permissions/rpi3_core_hardware.xml \
     $(LOCAL_PATH)/init.rpi3.rc:root/init.rpi3.rc \
     $(LOCAL_PATH)/init.usb.rc:root/init.usb.rc \

@@ -4,3 +4,7 @@
 /dev/ttyAMA0                    u:object_r:hci_attach_dev:s0
 
 /sys/class/rfkill/rfkill0/state u:object_r:sysfs_bluetooth_writable:s0
+
+/(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service\.rpi3  u:object_r:hal_graphics_allocator_default_exec:s0
+/(vendor|system/vendor)/lib/hw/android\.hardware\.graphics\.mapper@2\.0-impl\.rpi3\.so    u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib/hw/android\.hardware\.graphics\.composer@2\.1-impl\.rpi3\.so  u:object_r:same_process_hal_file:s0

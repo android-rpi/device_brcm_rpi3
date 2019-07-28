@@ -11,6 +11,7 @@ include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.drm.mode.force=1280x720 \
+    gralloc.drm.device=/dev/dri/card0 \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
@@ -24,7 +25,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libGLES_mesa \
     gralloc.rpi3 \
-    hwcomposer.rpi3 \
     memtrack.rpi3 \
     audio.primary.rpi3 \
     audio.usb.default \
@@ -35,10 +35,9 @@ PRODUCT_PACKAGES += \
 
 # hardware/interfaces
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.allocator@2.0-service.rpi3 \
+    android.hardware.graphics.mapper@2.0-impl.rpi3 \
+    android.hardware.graphics.composer@2.1-impl.rpi3 \
     android.hardware.audio@2.0-impl \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.keymaster@3.0-impl \

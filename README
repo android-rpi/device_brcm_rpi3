@@ -21,8 +21,8 @@ Read it first : https://github.com/android-rpi/local_manifests/tree/pie
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.
-  p1 512MB for BOOT : Do fdisk : W95 FAT32(LBA) & Bootable, mkfs.vfat
-  p2 512MB for /system : Do fdisk, new primary partition
+  p1 256MB for BOOT : Do fdisk : W95 FAT32(LBA) & Bootable, mkfs.vfat
+  p2 640MB for /system : Do fdisk, new primary partition
   p3 remainings for /data : Do fdisk, mkfs.ext4
  Set volume label for /data partition as userdata
   : use -L option of mkfs.ext4, e2label command, or -n option of mkfs.vfat

@@ -3,9 +3,9 @@ $(call inherit-product, device/google/atv/products/atv_base.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := arpi
 PRODUCT_MODEL := Raspberry Pi 3
-PRODUCT_MANUFACTURER := brcm
+PRODUCT_MANUFACTURER := ARPI
 
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
@@ -13,7 +13,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.drm.mode.force=1280x720 \
     gralloc.drm.device=/dev/dri/card0 \
     ro.opengles.version=131072 \
-    ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
     wifi.interface=wlan0
 
@@ -47,16 +46,17 @@ PRODUCT_PACKAGES += \
 
 # system configurations
 PRODUCT_COPY_FILES := \
-    hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     $(LOCAL_PATH)/rpi3_core_hardware.xml:system/etc/permissions/rpi3_core_hardware.xml \
-    $(LOCAL_PATH)/init.rpi3.rc:root/init.rpi3.rc \
     $(LOCAL_PATH)/init.usb.rc:root/init.usb.rc \
-    $(LOCAL_PATH)/ueventd.rpi3.rc:root/ueventd.rpi3.rc \
-    $(LOCAL_PATH)/fstab.rpi3:root/fstab.rpi3 \
-    $(LOCAL_PATH)/Generic.kl:system/usr/keylayout/Generic.kl \
+    $(LOCAL_PATH)/init.rpi3.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rpi3.rc \
+    $(LOCAL_PATH)/ueventd.rpi3.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(LOCAL_PATH)/fstab.rpi3:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.rpi3 \
+    $(LOCAL_PATH)/fstab.rpi3:$(TARGET_COPY_OUT_RAMDISK)/fstab.rpi3 \
+    $(LOCAL_PATH)/Generic.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/Generic.kl \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.bin:root/lib/firmware/brcm/brcmfmac43430-sdio.bin \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.txt:root/lib/firmware/brcm/brcmfmac43430-sdio.txt \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:root/lib/firmware/brcm/brcmfmac43455-sdio.bin \
@@ -75,7 +75,7 @@ PRODUCT_COPY_FILES := \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
     $(LOCAL_PATH)/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
-    frameworks/base/data/sounds/effects/ogg/Effect_Tick_48k.ogg:system/media/audio/ui/Effect_Tick.ogg \
+    frameworks/base/data/sounds/effects/ogg/Effect_Tick_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Effect_Tick.ogg \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay

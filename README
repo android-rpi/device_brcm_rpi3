@@ -1,35 +1,34 @@
-Read it first : https://github.com/android-rpi/local_manifests/tree/pie
+Read it first : https://github.com/android-rpi/local_manifests/tree/android-10
 
 # Build Kernel
- Install gcc-arm-linux-gnueabihf
+ $ sudo apt install gcc-arm-linux-gnueabihf libssl-dev
  $ cd kernel/rpi
  $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig kernel/configs/android-base.config kernel/configs/android-recommended.config
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make zImage
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make dtbs
 
 # Install python mako module
-  sudo apt-get install python-mako
-
-# Patch framework source :
-  https://github.com/android-rpi/device_brcm_rpi3/wiki/Pie-:-patch-framework-source
+ $ sudo apt install python-mako
 
 # Build Android source
  Continue build with http://source.android.com/source/building.html
  $ source build/envsetup.sh
  $ lunch rpi3-eng
- $ make ramdisk systemimage
+ $ make ramdisk systemimage vendorimage
 
 # Prepare sd card
  Partitions of the card should be set-up like followings.
   p1 256MB for BOOT : Do fdisk : W95 FAT32(LBA) & Bootable, mkfs.vfat
   p2 640MB for /system : Do fdisk, new primary partition
-  p3 remainings for /data : Do fdisk, mkfs.ext4
+  p3 128MB for /vendor : Do fdisk, new primary partition
+  p4 remainings for /data : Do fdisk, mkfs.ext4
  Set volume label for /data partition as userdata
   : use -L option of mkfs.ext4, e2label command, or -n option of mkfs.vfat
  
-# Write system partition
+# Write system & vendor partition
   $ cd out/target/product/rpi3
   $ sudo dd if=system.img of=/dev/<p2> bs=1M
+  $ sudo dd if=vendor.img of=/dev/<p3> bs=1M
   
 # Copy kernel & ramdisk to BOOT partition
   device/brcm/rpi3/boot/* to p1:/

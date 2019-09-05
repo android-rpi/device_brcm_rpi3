@@ -34,7 +34,6 @@
 
     <!-- Override configuration check for dpad so that we always appear to have one -->
     <bool name="config_hasPermanentDpad">true</bool>
-    <bool name="config_forceDefaultOrientation">true</bool>
 
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],
          [associated radio-type],[priority],[restoral-timer(ms)],[dependencyMet]  -->

@@ -1,2 +1,3 @@
 /dev/ttyAMA0              0660   bluetooth  bluetooth
 /dev/rfkill               0660   bluetooth  bluetooth
+/dev/ion                  0664   system     system

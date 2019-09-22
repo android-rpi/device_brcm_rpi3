@@ -1,4 +1,4 @@
-Read it first : https://github.com/android-rpi/local_manifests/tree/android-10
+Read it first : https://github.com/android-rpi/local_manifests/tree/android10
 
 # Build Kernel
  $ sudo apt install gcc-arm-linux-gnueabihf libssl-dev

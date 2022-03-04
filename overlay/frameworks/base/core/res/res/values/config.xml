@@ -21,7 +21,7 @@
              4  UI_MODE_TYPE_TELEVISION
              5  UI_MODE_TYPE_APPLIANCE
          Any other values will have surprising consequences. -->
-    <integer name="config_defaultUiModeType">4</integer>
+    <integer name="config_defaultUiModeType">1</integer>
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
@@ -31,6 +31,7 @@
          policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
     -->
     <integer name="config_longPressOnHomeBehavior">0</integer>
+    <bool name="config_showNavigationBar">true</bool>
 
     <!-- Override configuration check for dpad so that we always appear to have one -->
     <bool name="config_hasPermanentDpad">true</bool>

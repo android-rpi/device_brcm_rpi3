@@ -14,8 +14,7 @@
 # limitations under the License.
 #
 
-USE_OEM_TV_APP := true
-$(call inherit-product, device/google/atv/products/atv_base.mk)
+$(call inherit-product, build/target/product/generic_no_telephony.mk)
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
@@ -33,8 +32,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
 # application packages
-PRODUCT_PACKAGES += \
-    RpLauncher
+#PRODUCT_PACKAGES += \
+#    RpLauncher
 
 # system packages
 PRODUCT_PACKAGES += \
@@ -95,6 +94,6 @@ PRODUCT_COPY_FILES := \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
-PRODUCT_CHARACTERISTICS := tv
+PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT,nl_BE,nl_NL

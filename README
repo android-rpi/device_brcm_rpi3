@@ -2,6 +2,9 @@ Read it first : https://github.com/android-rpi/local_manifests/tree/pie
 
 # Build Kernel
  Install gcc-arm-linux-gnueabihf
+ If you're using gcc 11, you'll need to apply 2 patches:
+ * [change 1](https://github.com/BPI-SINOVOIP/BPI-M4-bsp/issues/4#issuecomment-1296184876) to fix the error of multiple global declarations of yylloc.
+ * [change 2 ](https://lore.kernel.org/linux-arm-kernel/20211018140735.3714254-1-arnd@kernel.org/) to fix architecture compilation errors.
  $ cd kernel/rpi
  $ ARCH=arm scripts/kconfig/merge_config.sh arch/arm/configs/bcm2709_defconfig kernel/configs/android-base.config kernel/configs/android-recommended.config
  $ ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make zImage
@@ -12,6 +15,13 @@ Read it first : https://github.com/android-rpi/local_manifests/tree/pie
 
 # Patch framework source :
   https://github.com/android-rpi/device_brcm_rpi3/wiki/Pie-:-patch-framework-source
+
+# Update Flex version from Lineage-OS
+  https://review.lineageos.org/c/LineageOS/android_prebuilts_misc/+/225953
+  => download and replace .../prebuilts/misc/linux-x86/flex/flex-2.5.39
+  
+# If you are running Kernel 5.18 or later, apply this patch to avoid compilation error to create boot.art:
+  https://android-review.googlesource.com/c/platform/art/+/2226578/2
 
 # Build Android source
  Continue build with http://source.android.com/source/building.html
